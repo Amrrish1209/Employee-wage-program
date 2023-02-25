@@ -2,21 +2,24 @@
 
 echo "Checking Employee is present or absent if present then we want to calculate the Daily wage"
 
-res=$(( RANDOM % 2 ))
-dayhour=$(( RANDOM % 2 == 0 ? 4 : 8 ))
+
 total_working_days=20
 wageperhour=20
 total_work_hour=0
+max_working_hour=100
+day=1
 
-for (( day=1;day<=total_working_days;day++ ))
+while (( $day <= $total_working_days && $total_work_hour<=$max_working_hour ))
 do
+res=$(( RANDOM % 2 ))
+dayhour=$(( RANDOM % 2 == 0 ? 4 : 8 ))
 case $res in
 1)
 	echo "Checking the employee working as fullday or parttime and giving salary"
 	if [ $dayhour -eq 8 ]
 	then
 		employeesalary=$(( dayhour * wageperhour ))
-		echo "Daily Employee salary is:" $employeesalary
+		echo "Full time Employee salary is:" $employeesalary
 	else
 		emplpartsalary=$(( dayhour * wageperhour ))
 		echo "Part time Employee salary is:" $emplpartsalary
@@ -27,6 +30,7 @@ case $res in
 	echo "Employee is absent and salary is 0"
 	;;
 esac
+((day++))
 done
 	total_salary=$(( total_work_hour * wageperhour ))
 	echo "Total Salary of an Employee is :"$total_salary
